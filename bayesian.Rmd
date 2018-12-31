@@ -2,7 +2,7 @@
 title: "bayesian"
 author: "Amr Attyah"
 date: "12/31/2018"
-output: github_document
+output: rmarkdown::github_document
 ---
 
 ```{r setup, include=FALSE}
