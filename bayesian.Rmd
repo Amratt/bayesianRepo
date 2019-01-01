@@ -80,14 +80,8 @@ cat("95% credible intervals for the mean time between calls",qinvgamma(c(0.025, 
 ```
 Prior Mean = a0 $\times$ b0 = 4 $\times$ 0.0015 = 0.006 
 
-\newline
-
 Prior Standard Deviation = sqrt(a0 $\times$ b0^2) = sqrt(4 $\times$ 0.00152^2)=0.003
 
-\newline
-
 Posterior Mean = a1 $\times$ b1 = 19 $\times$ 0.000241 = 0.004579
-
-\newline
 
 Posterior Standard Deviation = sqrt(a1 $\times$ b1^2)= sqrt(19 $\times$ 0.000241^2) = 0.00105
