@@ -171,6 +171,11 @@ legend(0.55,6,c("Treatment Group","Placebo Group"),col=c("blue","red"),
 *Generate 1000 random pairs (q1i, q2i), i=1,...,1000 from the joint posterior distribution for (Q1, Q2). Use this random sample to estimate the posterior probability that the rate of
 relapse is lower for treatment than for placebo. Comment on your results. Does your analysis support the hypothesis that treatment with corticosteroids reduces the rate of relapse?*
 
+We use the random beta distribution to generate 1000 pairs from theta 1 and theta 2
+The first pair is generated from theta 1 (treatment group) with shape1= 20, shape2=52
+The second pair is generated from theta 2 (placebo group) with shape1= 31, shape2 = 41
+
+
 ```{r}
 r1<-rbeta(1000,shape1 = 20, shape2 = 52)
 r2<-rbeta(1000,shape1 = 31, shape2 = 41)
@@ -181,3 +186,7 @@ probTreatment = sum(diff<0)/length(diff) #Proportion of treatment is lowerthan p
 
 probTreatment
 ```
+
+
+The code above shows that the probability that the relapse rate for the treatment group is lower than the placebo group is 97%. 
+This shows strong evidence that the analysis support the hypothesis and we can conclude that the corticosteroids reduces the rate of relapse. 
