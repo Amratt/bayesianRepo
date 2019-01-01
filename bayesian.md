@@ -75,4 +75,4 @@ legend(0.01,400,c("Prior","Posterior"),col=c("blue","red"),lty=c(1,1,1))
 ![](bayesian_files/figure-html/unnamed-chunk-2-1.png)<!-- -->
 
 
-try to write something here
+try to write something here or anything

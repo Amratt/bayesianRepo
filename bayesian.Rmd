@@ -74,4 +74,4 @@ legend(0.01,400,c("Prior","Posterior"),col=c("blue","red"),lty=c(1,1,1))
 ```
 
 
-try to write something here
+try to write something here or anything
