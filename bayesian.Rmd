@@ -81,3 +81,27 @@ Prior Standard Deviation = sqrt(a0 X b0^2) = sqrt(4 X 0.0015^2) = 0.003
 Posterior Mean = a1 X b1 = 19 X 0.000241 = 0.004579
 
 Posterior Standard Deviation=sqrt(a1 X b1^2) = sqrt(19 X 0.000241^2) = 0.00105
+
+## Problem 3
+
+*What is the posterior predictive distribution for the number 
+of calls arriving in a 5-minute period during mid-morning? 
+What is the probability that more than 3 calls will arrive 
+in any given 5-minute period during mid-morning? Explain your reasoning.*
+
+Since the time between calls has exponential data with an inverse gamma prior and posterior distributions, the number of calls has has poisson data with gamma prior and posterior with negative binomial predictive distribution.
+  
+```{r}
+y=0:10
+NumberPeriods.min = 5
+NumberPeriods.sec = NumberPeriods.min*60 # convert 5 mintues to 300 seconds
+fpred=dnbinom(y,size=alpha1,prob=1/(1+NumberPeriods.sec*beta1))   # Negative binomial predictive distribution
+
+barplot(fpred,main="Predictive Distribution for 5-minute Period Calls", 
+        xlab="Number Of Calls", ylab="Probability", 	col=c("lightblue"), 
+        border=c("darkblue"),names.arg=y, beside=TRUE,ylim=c(0,0.35))
+
+1-sum(fpred[1:4]) # Probability more than 3 calls will arrive
+```
+
+
