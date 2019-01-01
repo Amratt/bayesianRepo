@@ -49,19 +49,6 @@ legend(0.01,5.9,c("Prior","Norm Lik","Posterior"),col=c("blue","green","red"),lt
 
 ![](bayesian_files/figure-html/unnamed-chunk-1-1.png)<!-- -->
 
-```r
-lambda =  seq(length=100,from=0.001,to=0.02)
-prior.dens=dgamma(lambda,shape= alpha0,scale =beta0)
-post.dens=dgamma(lambda,shape = alpha1,scale =beta1)
-plot(lambda,prior.dens,type="l",col="blue",main="Gamma Posterior & Prior Distributions",
-     xlab="Call Rate (Per Second)",ylab="Probability Density",
-     xlim=c(0,0.02),ylim=c(0,500))
-lines(lambda,post.dens,col="red")
-legend(0.01,400,c("Prior","Posterior"),col=c("blue","red"),lty=c(1,1,1))
-```
-
-![](bayesian_files/figure-html/unnamed-chunk-1-2.png)<!-- -->
-
 Starting with a very small beta resulted in a very spread out  inverse gamma distribution with mean 222.22 and a large standard deviation of 157.1. Using the exponential data, which is the conjugate pair of the inverse gamma, we updated our beliefs to have a mean of 230 and standard deviation of 55.91. The graph displayed about confirms the findings that the posterior distribution is narrower and and more concentrated.
 
 ## Problem 2
@@ -86,4 +73,4 @@ legend(0.01,400,c("Prior","Posterior"),col=c("blue","red"),lty=c(1,1,1))
 ```
 
 ![](bayesian_files/figure-html/unnamed-chunk-2-1.png)<!-- -->
-
+tr to write something here
