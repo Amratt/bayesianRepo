@@ -72,4 +72,6 @@ lines(lambda,post.dens,col="red")
 legend(0.01,400,c("Prior","Posterior"),col=c("blue","red"),lty=c(1,1,1))
 
 ```
-tr to write something here
+
+
+try to write something here
