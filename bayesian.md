@@ -74,6 +74,22 @@ legend(0.01,400,c("Prior","Posterior"),col=c("blue","red"),lty=c(1,1,1))
 
 ![](bayesian_files/figure-html/unnamed-chunk-2-1.png)<!-- -->
 
+```r
+cat("95% credible intervals for the mean number of calls",qgamma(c(0.025, 0.975),shape = alpha1,scale =beta1))
+```
+
+```
+## 95% credible intervals for the mean number of calls 0.002755337 0.00685213
+```
+
+```r
+cat("95% credible intervals for the mean time between calls",qinvgamma(c(0.025, 0.975),shape = alpha1,scale = beta1))
+```
+
+```
+## 95% credible intervals for the mean time between calls 145.94 362.932
+```
+
 
 Prior Mean = a0 X b0 = 4 X 0.0015 = 0.006 
 
@@ -107,11 +123,69 @@ barplot(fpred,main="Predictive Distribution for 5-minute Period Calls",
 ![](bayesian_files/figure-html/unnamed-chunk-3-1.png)<!-- -->
 
 ```r
-1-sum(fpred[1:4]) # Probability more than 3 calls will arrive
+(1-sum(fpred[1:4]))*100 # Probability more than 3 calls will arrive
 ```
 
 ```
-## [1] 0.05687749
+## [1] 5.687749
 ```
+
+
+## Problem 4
+
+
+*Chronic obstructive pulmonary disease (COPD) is a common lung disease characterized by difficulty in breathing. Its two main forms are chronic bronchitis and emphysema.Most people with COPD have a combination of both these conditions. COPD is a
+common cause of visits to emergency medical facilities. A substantial proportion of COPD patients admitted to emergency medical facilities are released as outpatients. A randomized, double-blind, placebo-controlled study examined the incidence of relapse in COPD patients released as outpatients as a function of whether the patients received treatment with corticosteroids.1 A total of 147 patients were enrolled in the study and were randomly assigned to treatment or placebo group on discharge from an emergency facility. Seven patients were lost from the study prior to follow-up. For the remaining
+140 patients, the table below summarizes the primary outcome of the study, relapse within 30 days of discharge.*
+
+
+```r
+theta=seq(length=400,from=0.001,to=0.99)
+
+alpha0 = 1
+beta0 = 1
+priorDens<- dbeta(theta,shape1=alpha0,shape2=beta0)
+# The data
+
+y1.repalce = 19    
+y1.total = 70    
+
+y1.alpha1 = alpha0 + y1.repalce 
+y1.beta1 = beta0 + y1.total - y1.repalce 
+
+postDens.theta1=dbeta(theta,shape1=y1.alpha1,shape2=y1.beta1)  # Posterior
+
+# The data
+
+y2.repalce = 30    
+y2.total = 70    
+
+y2.alpha1 = alpha0 + y2.repalce 
+y2.beta1 = beta0 + y2.total - y2.repalce 
+
+postDens.theta2=dbeta(theta,shape1=y2.alpha1,shape2=y2.beta1)  # Posterior
+joint.Dis<- postDens.theta1*postDens.theta2
+# joint distribution plot
+
+plot(theta,joint.Dis,type="l",col="blue",
+     main="The Joint Distribution Of Theta 1 & Theta 2",
+     xlab=expression(theta),ylab="Probability Density",
+     xlim=c(0,1),ylim=c(0,9))
+```
+
+![](bayesian_files/figure-html/unnamed-chunk-4-1.png)<!-- -->
+
+```r
+# theta 1 and theta 2 in the same axis
+plot(theta,postDens.theta1,type="l",col="blue",
+     main="Posterior Distribution For The 2 Groups",
+     xlab=expression(theta),ylab="Probability Density",
+     xlim=c(0,1),ylim=c(0,9))
+lines(theta,postDens.theta2,col="red")
+legend(0.55,6,c("Treatment Group","Placebo Group"),col=c("blue","red"),
+       lty=c(1,1,1))
+```
+
+![](bayesian_files/figure-html/unnamed-chunk-4-2.png)<!-- -->
 
 
