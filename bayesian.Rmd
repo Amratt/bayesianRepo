@@ -190,3 +190,38 @@ probTreatment
 
 The code above shows that the probability that the relapse rate for the treatment group is lower than the placebo group is 97%. 
 This shows strong evidence that the analysis support the hypothesis and we can conclude that the corticosteroids reduces the rate of relapse. 
+
+## Problem 6
+*Consider a sample of 50 patients given corticosteroids on discharge from an emergency
+facility. Using the posterior distribution for problem 4 as a prior distribution, find the
+predictive distribution for the number of patients who relapse within 30 days of
+discharge. Find the mean, standard deviation and a 95% credible interval for the number
+of patients who relapse within 30 days.*
+
+Since the 50 patients are taken from the group of people who were given the corticosteroids treatment, we will use the parameters for theta1 as our prior. The predictive distribution is a beta-binomial distribution and the parameters are: shape1= alpha = 20 and shape 2 = beta = 52, and size = nr trials = 50. The dbetabinom function from the “rmutil” package requires additional parameters:
+M = vector of probabilities of success = alpha/alpha+beta = 20/(20+52) = 0.278
+S = virtual count = alpha+beta = 20+52 = 72
+
+
+```{r}
+require(rmutil)
+mean.theta1<- round(y1.alpha1/(y1.alpha1+y1.beta1),4)
+
+n =1
+r = 50
+y= 0:50
+
+bbinom.predict=dbetabinom(y,r*n,mean.theta1,y1.alpha1+y1.beta1)  
+barplot(bbinom.predict,main="Predictive Distribution of 50 Patients Given Treatment", 
+        xlab="Number Of Relapces", ylab="Probability", 	col=c("lightblue"), 
+        border=c("darkblue"), names.arg=0:50, beside=TRUE,ylim=c(0,0.1))
+
+
+meanb = sum(y*bbinom.predict)
+cat("Mean= ",meanb)         # Mean
+varb = sum((y-meanb)^2*bbinom.predict)
+sdb = sqrt(varb)          # Standard Deviation
+cat("Standard Deviation= ",sdb)
+q95<-qbetabinom(c(0.025, 0.975), 50, mean.theta1, y1.alpha1+y1.beta1)  # 95% credible Interval
+cat("95% Credible Interval= ","[",q95,"]")
+```
