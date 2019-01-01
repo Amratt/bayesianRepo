@@ -76,15 +76,24 @@ legend(0.01,400,c("Prior","Posterior"),col=c("blue","red"),lty=c(1,1,1))
 
 ![](bayesian_files/figure-html/unnamed-chunk-2-1.png)<!-- -->
 
-
+```r
+cat("95% credible intervals for the mean number of calls",qgamma(c(0.025, 0.975),shape = alpha1,scale =beta1))
+```
 
 ```
 ## 95% credible intervals for the mean number of calls 0.002755337 0.00685213
 ```
 
+```r
+cat("95% credible intervals for the mean time between calls",qinvgamma(c(0.025, 0.975),shape = alpha1,scale = beta1))
+```
+
 ```
 ## 95% credible intervals for the mean time between calls 145.94 362.932
 ```
+
+
+
 Prior Mean = a0 $\times$ b0 = 4 $\times$ 0.0015 = 0.006 
 
 Prior Standard Deviation = sqrt(a0 $\times$ b0^2) = sqrt(4 $\times$ 0.00152^2)=0.003
