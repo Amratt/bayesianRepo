@@ -117,6 +117,12 @@ barplot(fpred,main="Predictive Distribution for 5-minute Period Calls",
 common cause of visits to emergency medical facilities. A substantial proportion of COPD patients admitted to emergency medical facilities are released as outpatients. A randomized, double-blind, placebo-controlled study examined the incidence of relapse in COPD patients released as outpatients as a function of whether the patients received treatment with corticosteroids.1 A total of 147 patients were enrolled in the study and were randomly assigned to treatment or placebo group on discharge from an emergency facility. Seven patients were lost from the study prior to follow-up. For the remaining
 140 patients, the table below summarizes the primary outcome of the study, relapse within 30 days of discharge.*
 
+*Let Y1 and Y2 be the number of patients who relapse in the treatment and placebo groups,
+respectively. Assume the Yi are independent random variables with Binomial(70, Qi)
+distributions, for i=1,2. Assume Q1 and Q2 are independent with uniform prior
+distributions. Find the joint posterior distribution for Q1 and Q2. Plot the posterior
+density functions for Q1 and Q2 on the same axes. Comment on your results.*
+
 ```{r}
 theta=seq(length=400,from=0.001,to=0.99)
 
@@ -161,3 +167,17 @@ legend(0.55,6,c("Treatment Group","Placebo Group"),col=c("blue","red"),
 ```
 
 
+## Problem 5
+*Generate 1000 random pairs (q1i, q2i), i=1,...,1000 from the joint posterior distribution for (Q1, Q2). Use this random sample to estimate the posterior probability that the rate of
+relapse is lower for treatment than for placebo. Comment on your results. Does your analysis support the hypothesis that treatment with corticosteroids reduces the rate of relapse?*
+
+```{r}
+r1<-rbeta(1000,shape1 = 20, shape2 = 52)
+r2<-rbeta(1000,shape1 = 31, shape2 = 41)
+
+diff<- r1-r2  #Difference relapce rate
+
+probTreatment = sum(diff<0)/length(diff) #Proportion of treatment is lowerthan placebo
+
+probTreatment
+```
