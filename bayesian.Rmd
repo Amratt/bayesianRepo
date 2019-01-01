@@ -69,20 +69,5 @@ plot(lambda,prior.dens,type="l",col="blue",main="Gamma Posterior & Prior Distrib
 lines(lambda,post.dens,col="red")
 legend(0.01,400,c("Prior","Posterior"),col=c("blue","red"),lty=c(1,1,1))
 
-
-
 ```
 
-
-``` {r}
-cat("95% credible intervals for the mean number of calls",qgamma(c(0.025, 0.975),shape = alpha1,scale =beta1))
-cat("95% credible intervals for the mean time between calls",qinvgamma(c(0.025, 0.975),shape = alpha1,scale = beta1))
-
-```
-Prior Mean = a0 X b0 = 4 X 0.0015 = 0.006 
-
-Prior Standard Deviation = sqrt(a0 X b0^2) = sqrt(4 X 0.00152^2)=0.003
-
-Posterior Mean = a1 X b1 = 19 X 0.000241 = 0.004579
-
-Posterior Standard Deviation = sqrt(a1 X b1^2)= sqrt(19 X 0.000241^2) = 0.00105
