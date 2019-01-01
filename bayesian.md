@@ -62,14 +62,28 @@ If the mean time between calls has a inverse gamma distribution (shape = a_star,
 
 
 ```r
-lambda =  seq(length=100,from=0.001,to=0.02)
-prior.dens=dgamma(lambda,shape= alpha0,scale =beta0)
-post.dens=dgamma(lambda,shape = alpha1,scale =beta1)
-plot(lambda,prior.dens,type="l",col="blue",main="Gamma Posterior & Prior Distributions",
-     xlab="Call Rate (Per Second)",ylab="Probability Density",
-     xlim=c(0,0.02),ylim=c(0,500))
-lines(lambda,post.dens,col="red")
-legend(0.01,400,c("Prior","Posterior"),col=c("blue","red"),lty=c(1,1,1))
+CallsBySec <- c(168, 314, 560, 754, 1215, 1493, 1757, 1820, 1871, 
+                1982, 2134, 2430, 3187, 3388, 3485)
+
+
+alpha0 = 4        # Prior shape
+beta0 = 0.0015      # Prior inverse-scale (scale of the Gamma distributionf for birth rate)
+
+n = length(CallsBySec) # number of calls
+sum.ibt =CallsBySec[n] 
+alpha1 = alpha0 + n   # posterior shape
+beta1 = (1/beta0 + sum.ibt)^-1
+
+thetavals=seq(length=100,from=0.1,to=600)
+prior.dens=dinvgamma(thetavals,alpha0,scale=beta0)
+norm.lik=dinvgamma(thetavals,n-1,scale=1/sum.ibt)
+post.dens=dinvgamma(thetavals,alpha1,scale=beta1)
+plot(thetavals,prior.dens,type="l",col="blue",main="Triplot for Mean Time Between Calls",
+     xlab="Mean Time Between Calls (Seconds)",ylab="Probability Density",
+     xlim=c(0,600),ylim=c(0,0.01))
+lines(thetavals,norm.lik,col="green")
+lines(thetavals,post.dens,col="red")
+legend(0.01,5.9,c("Prior","Norm Lik","Posterior"),col=c("blue","green","red"),lty=c(1,1,1))
 ```
 
 ![](bayesian_files/figure-html/unnamed-chunk-2-1.png)<!-- -->
