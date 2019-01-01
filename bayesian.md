@@ -11,8 +11,14 @@ output:
 
 ## Problem 1
 
- Management at a call center is investigating the call load in order to find an efficient staffing policy. Assume that time intervals between calls are exponentially 
-distributed. Assume the mean time between calls is constant during the mid-morning period. The following sequence of call times was collected during mid-morning, measured in seconds after the start of data collection: 168, 314, 560, 754, 1215, 1493, 1757, 1820, 1871,1982, 2134, 2430, 3187, 3388, 3485. Assume an inverse Gamma prior distribution with shape a =4 and scale b = 0.0015 for the mean time in seconds between calls Q. Find the posterior distribution for Q. Find the prior and posterior mean and standard deviation for Q. Discuss. (Note: Because of the memoryless property of the exponential distribution, you can treat the time until the first call as having an exponential distribution.)
+*Management at a call center is investigating the call load in order to find an efficient staffing policy. Assume that time intervals between calls are exponentially 
+distributed. Assume the mean time between calls is constant during the mid-morning period. The following sequence of call times was collected during mid-morning, measured in seconds after the start of data collection: 168, 314, 560, 754, 1215, 1493, 1757, 1820, 1871,1982, 2134, 2430, 3187, 3388, 3485. Assume an inverse Gamma prior distribution with shape a =4 and scale b = 0.0015 for the mean time in seconds between calls Q. Find the posterior distribution for Q. Find the prior and posterior mean and standard deviation for Q. Discuss. (Note: Because of the memoryless property of the exponential distribution, you can treat the time until the first call as having an exponential distribution.)*
+
+&nbsp;
+&nbsp;
+
+a1=shape=a0+n=4+15 = 19
+b1=scale=1/(b0^(-1) +sum(x_i)) = 1/(0.0015^(-1)+3485 seconds) = 0.000241
 
 
 ```r
@@ -46,3 +52,51 @@ legend(0.01,5.9,c("Prior","Norm Lik","Posterior"),col=c("blue","green","red"),lt
 ![](bayesian_files/figure-html/unnamed-chunk-1-1.png)<!-- -->
 
 Starting with a very small beta resulted in a very spread out  inverse gamma distribution with mean 222.22 and a large standard deviation of 157.1. Using the exponential data, which is the conjugate pair of the inverse gamma, we updated our beliefs to have a mean of 230 and standard deviation of 55.91. The graph displayed about confirms the findings that the posterior distribution is narrower and and more concentrated.
+
+## Problem 2
+
+*Use the results of Problem 1 to find the posterior distribution
+for the mean number of calls per second at the call center during mid-morning. Find 95% credible intervals for the mean number of calls per second and for the mean time between calls. 
+Explain your reasoning.*
+
+&nbsp;
+&nbsp;
+
+If the mean time between calls has a inverse gamma distribution (shape = $\widehat{\alpha}$,scale = $\widehat{\beta}$), then the mean number of calls has a gamma distribution(shape = $\widehat{\alpha}$,scale = $\widehat{\beta}$), where $\theta$ = $\lambda$^-(1)
+
+
+```r
+lambda =  seq(length=100,from=0.001,to=0.02)
+prior.dens=dgamma(lambda,shape= alpha0,scale =beta0)
+post.dens=dgamma(lambda,shape = alpha1,scale =beta1)
+plot(lambda,prior.dens,type="l",col="blue",main="Gamma Posterior & Prior Distributions",
+     xlab="Call Rate (Per Second)",ylab="Probability Density",
+     xlim=c(0,0.02),ylim=c(0,500))
+lines(lambda,post.dens,col="red")
+legend(0.01,400,c("Prior","Posterior"),col=c("blue","red"),lty=c(1,1,1))
+```
+
+![](bayesian_files/figure-html/unnamed-chunk-2-1.png)<!-- -->
+
+
+
+```
+## 95% credible intervals for the mean number of calls 0.002755337 0.00685213
+```
+
+```
+## 95% credible intervals for the mean time between calls 145.94 362.932
+```
+Prior Mean = a0 $\times$ b0 = 4 $\times$ 0.0015 = 0.006 
+
+\newline
+
+Prior Standard Deviation = sqrt(a0 $\times$ b0^2) = sqrt(4 $\times$ 0.00152^2)=0.003
+
+\newline
+
+Posterior Mean = a1 $\times$ b1 = 19 $\times$ 0.000241 = 0.004579
+
+\newline
+
+Posterior Standard Deviation = sqrt(a1 $\times$ b1^2)= sqrt(19 $\times$ 0.000241^2) = 0.00105
