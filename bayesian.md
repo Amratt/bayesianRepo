@@ -75,4 +75,10 @@ legend(0.01,400,c("Prior","Posterior"),col=c("blue","red"),lty=c(1,1,1))
 ![](bayesian_files/figure-html/unnamed-chunk-2-1.png)<!-- -->
 
 
-try to write something here or anything
+Prior Mean = a0 X b0 = 4 X 0.0015 = 0.006 
+
+Prior Standard Deviation = sqrt(a0 X b0^2) = sqrt(4 X 0.0015^2) = 0.003
+
+Posterior Mean = a1 X b1 = 19 X 0.000241 = 0.004579
+
+Posterior Standard Deviation=sqrt(a1 X b1^2) = sqrt(19 X 0.000241^2) = 0.00105
