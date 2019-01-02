@@ -49,6 +49,164 @@ legend(0.01,5.9,c("Prior","Norm Lik","Posterior"),col=c("blue","green","red"),lt
 
 ![](bayesian_files/figure-html/unnamed-chunk-1-1.png)<!-- -->
 
+```r
+lambda =  seq(length=100,from=0.001,to=0.02)
+prior.dens=dgamma(lambda,shape= alpha0,scale =beta0)
+post.dens=dgamma(lambda,shape = alpha1,scale =beta1)
+plot(lambda,prior.dens,type="l",col="blue",main="Gamma Posterior & Prior Distributions",
+     xlab="Call Rate (Per Second)",ylab="Probability Density",
+     xlim=c(0,0.02),ylim=c(0,500))
+lines(lambda,post.dens,col="red")
+legend(0.01,400,c("Prior","Posterior"),col=c("blue","red"),lty=c(1,1,1))
+```
+
+![](bayesian_files/figure-html/unnamed-chunk-1-2.png)<!-- -->
+
+```r
+cat("95% credible intervals for the mean number of calls",qgamma(c(0.025, 0.975),shape = alpha1,scale =beta1))
+```
+
+```
+## 95% credible intervals for the mean number of calls 0.002755337 0.00685213
+```
+
+```r
+cat("95% credible intervals for the mean time between calls",qinvgamma(c(0.025, 0.975),shape = alpha1,scale = beta1))
+```
+
+```
+## 95% credible intervals for the mean time between calls 145.94 362.932
+```
+
+```r
+y=0:10
+NumberPeriods.min = 5
+NumberPeriods.sec = NumberPeriods.min*60 # convert 5 mintues to 300 seconds
+fpred=dnbinom(y,size=alpha1,prob=1/(1+NumberPeriods.sec*beta1))   # Negative binomial predictive distribution
+
+barplot(fpred,main="Predictive Distribution for 5-minute Period Calls", 
+        xlab="Number Of Calls", ylab="Probability", 	col=c("lightblue"), 
+        border=c("darkblue"),names.arg=y, beside=TRUE,ylim=c(0,0.35))
+```
+
+![](bayesian_files/figure-html/unnamed-chunk-1-3.png)<!-- -->
+
+```r
+(1-sum(fpred[1:4]))*100 # Probability more than 3 calls will arrive
+```
+
+```
+## [1] 5.687749
+```
+
+```r
+theta=seq(length=400,from=0.001,to=0.99)
+
+alpha0 = 1
+beta0 = 1
+priorDens<- dbeta(theta,shape1=alpha0,shape2=beta0)
+# The data
+
+y1.repalce = 19    
+y1.total = 70    
+
+y1.alpha1 = alpha0 + y1.repalce 
+y1.beta1 = beta0 + y1.total - y1.repalce 
+
+postDens.theta1=dbeta(theta,shape1=y1.alpha1,shape2=y1.beta1)  # Posterior
+
+# The data
+
+y2.repalce = 30    
+y2.total = 70    
+
+y2.alpha1 = alpha0 + y2.repalce 
+y2.beta1 = beta0 + y2.total - y2.repalce 
+
+postDens.theta2=dbeta(theta,shape1=y2.alpha1,shape2=y2.beta1)  # Posterior
+joint.Dis<- postDens.theta1*postDens.theta2
+# joint distribution plot
+
+plot(theta,joint.Dis,type="l",col="blue",
+     main="The Joint Distribution Of Theta 1 & Theta 2",
+     xlab=expression(theta),ylab="Probability Density",
+     xlim=c(0,1),ylim=c(0,9))
+```
+
+![](bayesian_files/figure-html/unnamed-chunk-1-4.png)<!-- -->
+
+```r
+# theta 1 and theta 2 in the same axis
+plot(theta,postDens.theta1,type="l",col="blue",
+     main="Posterior Distribution For The 2 Groups",
+     xlab=expression(theta),ylab="Probability Density",
+     xlim=c(0,1),ylim=c(0,9))
+lines(theta,postDens.theta2,col="red")
+legend(0.55,6,c("Treatment Group","Placebo Group"),col=c("blue","red"),
+       lty=c(1,1,1))
+```
+
+![](bayesian_files/figure-html/unnamed-chunk-1-5.png)<!-- -->
+
+```r
+r1<-rbeta(1000,shape1 = 20, shape2 = 52)
+r2<-rbeta(1000,shape1 = 31, shape2 = 41)
+
+diff<- r1-r2  #Difference relapce rate
+
+probTreatment = sum(diff<0)/length(diff) #Proportion of treatment is lowerthan placebo
+
+probTreatment
+```
+
+```
+## [1] 0.972
+```
+
+```r
+library(rmutil)
+mean.theta1<- round(y1.alpha1/(y1.alpha1+y1.beta1),4)
+
+n =1
+r = 50
+y= 0:50
+
+bbinom.predict=dbetabinom(y,r*n,mean.theta1,y1.alpha1+y1.beta1)  
+barplot(bbinom.predict,main="Predictive Distribution of 50 Patients Given Treatment", 
+        xlab="Number Of Relapces", ylab="Probability", 	col=c("lightblue"), 
+        border=c("darkblue"), names.arg=0:50, beside=TRUE,ylim=c(0,0.1))
+```
+
+![](bayesian_files/figure-html/unnamed-chunk-1-6.png)<!-- -->
+
+```r
+meanb = sum(y*bbinom.predict)
+cat("Mean= ",meanb)         # Mean
+```
+
+```
+## Mean=  13.89
+```
+
+```r
+varb = sum((y-meanb)^2*bbinom.predict)
+sdb = sqrt(varb)          # Standard Deviation
+cat("Standard Deviation= ",sdb)
+```
+
+```
+## Standard Deviation=  4.094476
+```
+
+```r
+q95<-qbetabinom(c(0.025, 0.975), 50, mean.theta1, y1.alpha1+y1.beta1)  # 95% credible Interval
+cat("95% Credible Interval= ","[",q95,"]")
+```
+
+```
+## 95% Credible Interval=  [ 6 22 ]
+```
+
 Starting with a very small beta resulted in a very spread out  inverse gamma distribution with mean 222.22 and a large standard deviation of 157.1. Using the exponential data, which is the conjugate pair of the inverse gamma, we updated our beliefs to have a mean of 230 and standard deviation of 55.91. The graph displayed about confirms the findings that the posterior distribution is narrower and and more concentrated.
 
 ## Problem 2
@@ -217,7 +375,7 @@ probTreatment
 ```
 
 ```
-## [1] 0.974
+## [1] 0.981
 ```
 
 
@@ -238,31 +396,7 @@ S = virtual count = alpha+beta = 20+52 = 72
 
 
 ```r
-require(rmutil)
-```
-
-```
-## Loading required package: rmutil
-```
-
-```
-## 
-## Attaching package: 'rmutil'
-```
-
-```
-## The following object is masked from 'package:stats':
-## 
-##     nobs
-```
-
-```
-## The following objects are masked from 'package:base':
-## 
-##     as.data.frame, units
-```
-
-```r
+library(rmutil)
 mean.theta1<- round(y1.alpha1/(y1.alpha1+y1.beta1),4)
 
 n =1
