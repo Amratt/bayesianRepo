@@ -65,7 +65,7 @@ Explain your reasoning.*
 
 If the mean time between calls has a inverse gamma distribution (shape = a_star,scale = b_star), then the mean number of calls has a gamma distribution(shape = a_star,scale = b_star), where theta = lambda^-(1)
 
-```{r}
+```{r message=FALSE}
 lambda =  seq(length=100,from=0.001,to=0.02)
 prior.dens=dgamma(lambda,shape= alpha0,scale =beta0)
 post.dens=dgamma(lambda,shape = alpha1,scale =beta1)
