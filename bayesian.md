@@ -10,6 +10,7 @@ output:
 
 
 ###Call Load Management
+----------------------------
 
 **Management at a call center is investigating the call load in order to find an efficient staffing policy. Assume that time intervals between calls are exponentially 
 distributed. Assume the mean time between calls is constant during the mid-morning period. The following sequence of call times was collected during mid-morning, measured in seconds after the start of data collection: 168, 314, 560, 754, 1215, 1493, 1757, 1820, 1871,1982, 2134, 2430, 3187, 3388, 3485. Assume an inverse Gamma prior distribution with shape a =4 and scale b = 0.0015 for the mean time in seconds between calls Q.**
