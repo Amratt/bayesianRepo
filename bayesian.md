@@ -235,7 +235,7 @@ This shows strong evidence that the analysis support the hypothesis and we can c
 
 ### Problem 3
 *Consider a sample of 50 patients given corticosteroids on discharge from an emergency
-facility. Using the posterior distribution for problem 4 as a prior distribution, find the
+facility. Using the posterior distribution for problem 1 as a prior distribution, find the
 predictive distribution for the number of patients who relapse within 30 days of
 discharge. Find the mean, standard deviation and a 95% credible interval for the number
 of patients who relapse within 30 days.*
