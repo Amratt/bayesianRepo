@@ -9,7 +9,7 @@ output:
 
 
 
-###Call Load Management
+#Call Load Management
 ----------------------------
 
 **Management at a call center is investigating the call load in order to find an efficient staffing policy. Assume that time intervals between calls are exponentially 
