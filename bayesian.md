@@ -137,7 +137,8 @@ barplot(fpred,main="Predictive Distribution for 5-minute Period Calls",
 The probability that more than 3 calls will arrive during the 5 minute period is:
 1-P(Number Of Calls<=3)=0.0569=5.69%
 
-##Effect of Treatment On Patients With COPD
+Effect of Treatment On Patients With COPD
+----------------------------
 
 **Chronic obstructive pulmonary disease (COPD) is a common lung disease characterized by difficulty in breathing. Its two main forms are chronic bronchitis and emphysema. Most people with COPD have a combination of both these conditions. COPD is a
 common cause of visits to emergency medical facilities. A substantial proportion of COPD patients admitted to emergency medical facilities are released as outpatients. A randomized, double-blind, placebo-controlled study examined the incidence of relapse in COPD patients released as outpatients as a function of whether the patients received treatment with corticosteroids.1 A total of 147 patients were enrolled in the study and were randomly assigned to treatment or placebo group on discharge from an emergency facility. Seven patients were lost from the study prior to follow-up. For the remaining
