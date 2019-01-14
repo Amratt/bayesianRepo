@@ -24,7 +24,7 @@ distributed. Assume the mean time between calls is constant during the mid-morni
 a1=shape=a0+n=4+15 = 19
 b1=scale=1/(b0^(-1) +sum(x_i)) = 1/(0.0015^(-1)+3485 seconds) = 0.000241
 
-```{r message=FALSE}
+```{r c1, message=FALSE}
 library('invgamma')
 
 
@@ -65,7 +65,7 @@ Explain your reasoning.*
 
 If the mean time between calls has a inverse gamma distribution (shape = a_star,scale = b_star), then the mean number of calls has a gamma distribution(shape = a_star,scale = b_star), where theta = lambda^-(1)
 
-```{r message=FALSE}
+```{r c2, message=FALSE}
 lambda =  seq(length=100,from=0.001,to=0.02)
 prior.dens=dgamma(lambda,shape= alpha0,scale =beta0)
 post.dens=dgamma(lambda,shape = alpha1,scale =beta1)
@@ -95,7 +95,7 @@ in any given 5-minute period during mid-morning? Explain your reasoning.*
 
 Since the time between calls has exponential data with an inverse gamma prior and posterior distributions, the number of calls has has poisson data with gamma prior and posterior with negative binomial predictive distribution.
   
-```{r}
+```{r c3, message=FALSE}
 y=0:10
 NumberPeriods.min = 5
 NumberPeriods.sec = NumberPeriods.min*60 # convert 5 mintues to 300 seconds
@@ -146,7 +146,7 @@ Joint distribution of theta1 and theta2 = Posterior Distribution of theta1 X Pos
 
 Joint distribution of theta1 and theta2 = Beta (a1=20,b1=52) X Beta (a1=31,b1=41)
 
-```{r}
+```{r c4, message=FALSE}
 theta=seq(length=400,from=0.001,to=0.99)
 
 alpha0 = 1
@@ -185,7 +185,7 @@ The first pair is generated from theta 1 (treatment group) with shape1= 20, shap
 The second pair is generated from theta 2 (placebo group) with shape1= 31, shape2 = 41
 
 
-```{r}
+```{r c5, message=FALSE}
 r1<-rbeta(1000,shape1 = 20, shape2 = 52)
 r2<-rbeta(1000,shape1 = 31, shape2 = 41)
 
@@ -208,7 +208,7 @@ discharge. Find the mean, standard deviation and a 95% credible interval for the
 of patients who relapse within 30 days.*
 
 
-``` {r message = FALSE}
+``` {r c6, message=FALSE}
 require(rmutil)
 mean.theta1<- round(y1.alpha1/(y1.alpha1+y1.beta1),4)
 
