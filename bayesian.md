@@ -9,7 +9,8 @@ output:
 
 
 
-##Call Load Management
+Call Load Management
+----------------------------
 
 **Management at a call center is investigating the call load in order to find an efficient staffing policy. Assume that time intervals between calls are exponentially 
 distributed. Assume the mean time between calls is constant during the mid-morning period. The following sequence of call times was collected during mid-morning, measured in seconds after the start of data collection: 168, 314, 560, 754, 1215, 1493, 1757, 1820, 1871,1982, 2134, 2430, 3187, 3388, 3485. Assume an inverse Gamma prior distribution with shape a =4 and scale b = 0.0015 for the mean time in seconds between calls Q.**
@@ -136,7 +137,8 @@ barplot(fpred,main="Predictive Distribution for 5-minute Period Calls",
 The probability that more than 3 calls will arrive during the 5 minute period is:
 1-P(Number Of Calls<=3)=0.0569=5.69%
 
-##Effect of Treatment On Patients With COPD
+Effect of Treatment On Patients With COPD
+----------------------------
 
 **Chronic obstructive pulmonary disease (COPD) is a common lung disease characterized by difficulty in breathing. Its two main forms are chronic bronchitis and emphysema. Most people with COPD have a combination of both these conditions. COPD is a
 common cause of visits to emergency medical facilities. A substantial proportion of COPD patients admitted to emergency medical facilities are released as outpatients. A randomized, double-blind, placebo-controlled study examined the incidence of relapse in COPD patients released as outpatients as a function of whether the patients received treatment with corticosteroids.1 A total of 147 patients were enrolled in the study and were randomly assigned to treatment or placebo group on discharge from an emergency facility. Seven patients were lost from the study prior to follow-up. For the remaining
@@ -233,7 +235,7 @@ This shows strong evidence that the analysis support the hypothesis and we can c
 
 ### Problem 3
 *Consider a sample of 50 patients given corticosteroids on discharge from an emergency
-facility. Using the posterior distribution for problem 4 as a prior distribution, find the
+facility. Using the posterior distribution for problem 1 as a prior distribution, find the
 predictive distribution for the number of patients who relapse within 30 days of
 discharge. Find the mean, standard deviation and a 95% credible interval for the number
 of patients who relapse within 30 days.*
